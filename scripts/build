@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$root"
+cargo build --locked --release
+mkdir -p bin
+install -m 755 target/release/x-to-pdf bin/x-to-pdf
+sha256sum bin/x-to-pdf > SHA256SUMS

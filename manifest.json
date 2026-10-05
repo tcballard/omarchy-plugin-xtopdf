@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.tcballard.x-to-pdf",
+  "name": "X to PDF",
+  "version": "0.0.1",
+  "author": "Tom Ballard",
+  "license": "MIT",
+  "description": "Save long-form X Articles as local two-column PDFs. Port of Sahand Sojoodi’s X to PDF.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "X to PDF",
+    "description": "Save long-form X Articles as local two-column PDFs. Port of Sahand Sojoodi’s X to PDF.",
+    "category": "Utilities",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {},
+    "schema": []
+  }
+}

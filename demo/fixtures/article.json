@@ -1,0 +1,16 @@
+{
+  "title": "A quieter place to read <script>",
+  "byline": "Example Author · fictional test article",
+  "source": "https://x.com/example/status/1234567890",
+  "content": [
+    {"kind":"paragraph","runs":[{"kind":"text","text":"First paragraph. A saved article should preserve its words, structure and source. This fixture is fictional."}]},
+    {"kind":"heading","level":2,"runs":[{"kind":"text","text":"Keep the useful parts"}]},
+    {"kind":"list-item","ordered":true,"runs":[{"kind":"strong","children":[{"kind":"text","text":"Headings and emphasis"}]}]},
+    {"kind":"list-item","ordered":true,"runs":[{"kind":"link","href":"https://example.com/?q=%22","children":[{"kind":"text","text":"Links remain clickable"}]}]},
+    {"kind":"code","text":"let answer = 42;\nprintln!(\"{answer}\");"},
+    {"kind":"paragraph","runs":[{"kind":"text","text":"After the code. The original reading order matters."}]},
+    {"kind":"quote","runs":[{"kind":"em","children":[{"kind":"text","text":"Repeated on purpose"}]}]},
+    {"kind":"paragraph","runs":[{"kind":"text","text":"Repeated on purpose"}]},
+    {"kind":"paragraph","runs":[{"kind":"link","href":"javascript:alert(1)","children":[{"kind":"text","text":"This unsafe link becomes ordinary text."}]}]}
+  ]
+}

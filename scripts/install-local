@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Initial preview installation; refuses to overwrite an existing plugin.
+set -euo pipefail
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+plugin_id=io.github.tcballard.x-to-pdf
+destination="$HOME/.config/omarchy/plugins/$plugin_id"
+if [[ -e "$destination" || -L "$destination" ]]; then
+  printf 'Already installed at %s. Remove the existing preview before reinstalling.\n' "$destination" >&2
+  exit 1
+fi
+for dependency in omarchy omarchy-shell sha256sum; do
+  command -v "$dependency" >/dev/null || { printf 'Missing dependency: %s\n' "$dependency" >&2; exit 1; }
+done
+[[ -x "$root/bin/x-to-pdf" ]] || { printf 'Build the helper with ./scripts/build first.\n' >&2; exit 1; }
+(cd "$root" && sha256sum -c SHA256SUMS)
+"$root/bin/x-to-pdf" --check
+omarchy plugin validate "$root"
+mkdir -p "$destination/bin" "$destination/licenses"
+cp "$root/manifest.json" "$root/BarWidget.qml" "$root/Panel.qml" "$root/LICENSE" "$root/NOTICE.md" "$destination/"
+cp -R "$root/licenses/." "$destination/licenses/"
+install -m 755 "$root/bin/x-to-pdf" "$destination/bin/x-to-pdf"
+omarchy-shell shell rescanPlugins
+omarchy plugin enable "$plugin_id" --yes
+printf '\nX to PDF installed. Click X → PDF in the bar.\n'

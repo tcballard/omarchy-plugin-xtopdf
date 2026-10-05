@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$root"
+sha256sum -c SHA256SUMS
+mkdir -p dist
+stage="$(mktemp -d "$root/dist/package.XXXXXX")"
+mkdir "$stage/omarchy-x-to-pdf"
+cp -R BarWidget.qml Panel.qml Cargo.toml Cargo.lock LICENSE NOTICE.md README.md SHA256SUMS manifest.json .github .gitignore .omarchy-workbench.json assets bin demo docs licenses scripts src tests "$stage/omarchy-x-to-pdf/"
+archive="$root/dist/omarchy-x-to-pdf-v0.0.1-preview-linux-x86_64.zip"
+[[ ! -e "$archive" ]] || { printf 'Archive already exists; choose a new version or move the old archive.\n' >&2; exit 1; }
+(cd "$stage" && zip -qr "$archive" omarchy-x-to-pdf)
+printf 'Archive: %s\nStaged source for inspection: %s\n' "$archive" "$stage"

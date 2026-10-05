@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*.log
+test-results/
+target/
+bin/x-to-pdf
+dist/

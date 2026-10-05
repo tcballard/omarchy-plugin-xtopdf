@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$root"
+python3 scripts/validate_manifest.py "$root"
+cargo fmt --check
+cargo test --locked
+cargo clippy --locked --all-targets -- -D warnings
+node --check assets/extract.js
+node --check tests/build-browser-tests.cjs
+node --check tests/fake-browser.cjs
+bash -n scripts/build scripts/install-local scripts/package demo/run
+if command -v omarchy >/dev/null 2>&1; then omarchy plugin validate "$root"; fi
+printf 'Portable checks passed. Live Omarchy and Chromium checks are separate.\n'
